@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>Lost Link Admin, {{ name }}</h1>
+    <a href="{{ url_for('returning') }}">Return Item</a>
+    <a href="{{ url_for('login') }}">Log Out</a>
+
+    {% block content %}
+
+    {% endblock %}
+</body>
+</html>

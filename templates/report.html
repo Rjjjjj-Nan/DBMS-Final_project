@@ -1,0 +1,29 @@
+{% extends "dashindex.html" %}
+
+{% block content %}
+
+<h1>Report Lost Item</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    {{ form.item.label }}
+    {{ form.item() }}
+    <br>
+
+    {{ form.place.label }}
+    {{ form.place() }}
+    <br>
+
+    {{ form.photo.label }}
+    {{ form.photo() }}
+    <br>
+
+    {{ form.description.label }}
+    {{ form.description() }}
+    <br>
+
+    {{ form.submit() }}
+</form>
+
+{% endblock %}

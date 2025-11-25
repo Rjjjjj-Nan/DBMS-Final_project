@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>Lost Link Dashboard</h1>
+    <a href="{{ url_for('report') }}">Report</a>
+    <a href="{{ url_for('login') }}">Log Out</a>
+    <a href="{{ url_for('dashboard') }}">Feed</a>
+
+    <main>
+        {% if reports %}
+            <div class="feed">
+                {% for report in reports %}
+                    <div class="post">
+                        <h3>Item ID - {{ report.id }}</h3>
+                        <h3>Item Name - {{ report.item }}</h3>
+                        <h3>Place Found - {{ report.place }}</h3>
+                        <h3>Time Found - {{ report.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</h3>
+                        <img src="{{ url_for('static', filename='uploads/' ~ report.photo) }}" 
+                                    alt="{{ report.item }}" 
+                                    width="200" 
+                                    class="clickable-img"
+                                    data-report-id="{{ report.id }}">
+                        <p>{{ report.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No Reports Yet</p>
+        {% endif %}
+    </main>
+
+</body>
+</html>

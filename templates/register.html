@@ -1,0 +1,54 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<h1>Register</h1>
+
+<form method = "post">
+    {{ form.hidden_tag() }}
+
+    {{ form.sr_code.label }}
+    {{ form.sr_code() }}
+    <br>
+
+    {{ form.name.label }}
+    {{ form.name() }}
+    <br>
+
+    {{ form.surname.label }}
+    {{ form.surname() }}
+    <br>
+
+    {{ form.age.label }}
+    {{ form.age() }}
+    <br>
+
+    {{ form.email.label }}
+    {{ form.email() }}
+    <br>
+
+    {{ form.contact_number.label }}
+    {{ form.contact_number() }}
+    <br>
+
+    {{ form.gender.label }}
+    {{ form.gender() }}
+    <br>
+
+    {{ form.username.label }}
+    {{ form.username() }}
+    <br>
+
+    {{ form.password.label }}
+    {{ form.password() }}
+    <br>
+
+    {{ form.role.label }}
+    {{ form.role() }}
+    <br>
+
+    {{ form.submit() }}
+
+</form>
+
+{% endblock %}

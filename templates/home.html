@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>Lost Link</h1>
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('register') }}">Register</a>
+    <a href="{{ url_for('login') }}">Login</a>
+    <a href="{{ url_for('about') }}">About Us</a>
+
+    <main>
+        <h1>Locate. Link. Reclaim.</h1>
+        <p>LostLink is a lost and found system designed to help 
+            users report, search, and recover lost or found items efficiently. It provides 
+            a centralized platform where people can record item details and track their status 
+            until they are returned to their rightful owners. The system promotes honesty, organization, 
+            and sustainability by reducing the number of unclaimed or replaced belongings. Through technology, 
+            LostLink aims to build a more connected and responsible community.</p>
+    </main>
+</body>
+</html>

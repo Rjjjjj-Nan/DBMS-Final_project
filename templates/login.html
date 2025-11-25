@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h1>Login</h1>
+
+<form method = "post">
+    {{ form.hidden_tag() }}
+
+    {{ form.username.label }}
+    {{ form.username() }}
+    <br>
+
+    {{ form.password.label }}
+    {{ form.password() }}
+    <br>
+
+    {{ form.submit() }}
+</form>
+
+{% endblock %}

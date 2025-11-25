@@ -1,0 +1,31 @@
+{% extends "admin.html" %}
+
+{% block content %}
+
+<h1>Returning Items</h1>
+
+<form method = "post">
+    {{ form.hidden_tag() }}
+
+    {{ form.item_id.label }}
+    {{ form.item_id() }}
+    <br>
+
+
+    {{ form.name.label }}
+    {{ form.name() }}
+    <br>
+
+    {{ form.email.label }}
+    {{ form.email() }}
+    <br>
+
+    {{ form.contact.label }}
+    {{ form.contact() }}
+    <br>
+
+    {{ form.submit() }}
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,172 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    color: #1a202c;
+    margin-left: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #2c7be5;
+    margin-right: 15px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 20px;
+}
+
+/* NAVIGATION LINKS */
+body > a, header a {
+    display: inline-block;
+    margin: 10px;
+    font-weight: bold;
+}
+
+/* FORM STYLING */
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="number"],
+form input[type="email"],
+form select,
+form textarea {
+    width: 100%;
+    padding: 8px 12px;
+    margin: 5px 0 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+form input[type="submit"] {
+    background-color: #2c7be5;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form input[type="submit"]:hover {
+    background-color: #1a5dcc;
+}
+
+/* DASHBOARD FEED */
+.feed {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+.post {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.post:hover {
+    transform: translateY(-5px);
+}
+
+.post img {
+    width: 100%;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.post h3 {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.post p {
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* ADMIN RECORDS FEED */
+.admin-feed {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.report-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.report-card img {
+    width: 100%;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+/* ALERT MESSAGES */
+.flash {
+    max-width: 500px;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.flash-danger {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.flash-success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.flash-warning {
+    background-color: #fff3cd;
+    color: #664d03;
+}
+
+/* RESPONSIVE DESIGN */
+@media screen and (max-width: 600px) {
+    .feed, .admin-feed {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    form {
+        width: 90%;
+    }
+}
