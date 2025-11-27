@@ -74,6 +74,7 @@ def login():
                 return redirect(url_for('login'))
 
             session['role'] = user.role
+            session['sr_code'] = user.sr_code
             
             role_lower = session['role'] = user.role
 
@@ -108,11 +109,14 @@ def report():
 
         photo.save(os.path.join('static/uploads', filename))
 
+        founder_sr_code = session.get('sr_code')
+
         new_report = Report (
             item = form.item.data,
             place = form.place.data,
             photo = filename,
-            description = form.description.data
+            description = form.description.data,
+            report_by = founder_sr_code
         )
 
         db.session.add(new_report)
@@ -165,7 +169,7 @@ def returning():
         msg.body = f"""
 Hello {form.name.data},
 
-Your claim for the item '{report.item}' has beed submitted successfully.
+Your claim for the item '{report.item}' has beed returned successfully.
 
 Details:
 - Item: {report.item}

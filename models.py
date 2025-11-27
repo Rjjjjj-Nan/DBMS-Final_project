@@ -6,7 +6,7 @@ db = SQLAlchemy()
 class Register(db.Model):
     __tablename__ = 'users'
 
-    sr_code = db.Column(db.String, primary_key=True)
+    sr_code = db.Column(db.String(255), primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     surname = db.Column(db.String(255), nullable=False)
     age = db.Column(db.Integer, nullable=False)
@@ -26,12 +26,17 @@ class Report(db.Model):
     photo = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    report_by = db.Column(
+        db.String(255),
+        db.ForeignKey('users.sr_code'),
+        nullable=True
+    )
 
 class Return(db.Model):
     __tablename__ = 'returns'
 
     id = db.Column(db.Integer, primary_key=True)
-    item_id = db.Column(db.Integer, nullable=False) 
+    item_id = db.Column(db.Integer, db.ForeignKey('report.id', ondelete='CASCADE'), nullable=False)
     item_name = db.Column(db.String(255), nullable=False)
     place_found = db.Column(db.String(255), nullable=False)
     photo = db.Column(db.String(255), nullable=False)
