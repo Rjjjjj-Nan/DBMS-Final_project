@@ -144,6 +144,7 @@ def admin():
 @app.route('/admin/returning', methods = ['GET', 'POST'])
 def returning():
     form = ReturnForm()
+    current_admin = session.get('name')
 
     if form.validate_on_submit():
 
@@ -197,7 +198,13 @@ LostLink Admin Team
         flash("Claimed Successfully! Item moved to returned log.", "Success")
         return redirect(url_for('admin'))
     
-    return render_template('returning.html', form=form, title='Return Items')
+    return render_template('returning.html', form=form, title='Return Items', name = current_admin)
+
+@app.route('/admin/returned', methods = ['GET', 'POST'])
+def returned():
+    current_admin = session.get('name')
+    returned = Return.query.order_by(Return.id.asc()).all()
+    return render_template('returned.html', title = "Returned Items", returned = returned, name = current_admin)
 
 
 if __name__ == '__main__':

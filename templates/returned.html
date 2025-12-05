@@ -1,0 +1,40 @@
+{% extends "admin.html" %}
+
+{% block content %}
+    <div class="main-content">
+        <div class="report-section" method = "POST", enctype="multipart/form-data">
+            <h2>Returned Items</h2>
+            {% if returned %}
+                <div class="table">
+                    <table>
+                        <tr>
+                            <th>Id</th>
+                            <th>Item Id</th>
+                            <th>Item Name</th>
+                            <th>Place Found</th>
+                            <th>Claimed By</th>
+                            <th>Email</th>
+                            <th>Contact</th>
+                            <th>Return Time</th>
+                        </tr>
+                        {% for item in returned %}
+                            <tr>
+                                <td>{{ item.id }}</td>
+                                <td>{{ item.item_id }}</td>
+                                <td>{{ item.item_name }}</td>
+                                <td>{{ item.place_found }}</td>
+                                <td>{{ item.claimed_by }}</td>
+                                <td>{{ item.email }}</td>
+                                <td>{{ item.contact }}</td>
+                                <td>{{ item.timestamp_claimed.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% else %}
+                <p>No Returned Items Yet</p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
