@@ -7,12 +7,45 @@
     <title>{{ title }}</title>
 </head>
 <body>
-    <h1>Lost Link Admin, {{ name }}</h1>
+    <header>
+        <h1>Lost Link Admin, {{ name }}</h1>
+    </header>
+    <a href="{{ url_for('admin') }}">Admin</a>
     <a href="{{ url_for('returning') }}">Return Item</a>
-    <a href="{{ url_for('login') }}">Log Out</a>
+    <a href="{{ url_for('logout') }}">Log Out</a>
 
     {% block content %}
-
+        <div class="main-content">
+            <div class="report-section" method = 'POST', enctype='multipart/form-data'>
+                <h2>Pending Items</h2>
+                {% if reports %}
+                    <div class="table">
+                        <table>
+                            <tr>
+                                <th>Item Id</th>
+                                <th>Item Name</th>
+                                <th>Place Found</th>
+                                <th>Time Found</th>
+                                <th>Status</th>
+                                <th>Return</th>
+                            </tr>
+                            {% for report in reports %}
+                                <tr>
+                                    <td>{{ report.id }}</td>
+                                    <td>{{ report.item }}</td>
+                                    <td>{{ report.place }}</td>
+                                    <td>{{ report.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                                    <td>{{ report.date_claimed if report.date_claimed else 'Not Claimed' }}</td>
+                                    <td class="button"> <a href="{{ url_for('returning', item_id = report.id) }}">Return Item</a> </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% else %}
+                    <p>No Reports Yet</p>
+                {% endif %}
+            </div>
+        </div>
     {% endblock %}
 </body>
 </html>

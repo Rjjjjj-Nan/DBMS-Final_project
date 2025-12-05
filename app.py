@@ -75,18 +75,25 @@ def login():
 
             session['role'] = user.role
             session['sr_code'] = user.sr_code
+            current_user = session['name'] = user.name
             
             role_lower = session['role'] = user.role
 
             if role_lower == 'student':
                 return redirect(url_for('dashboard'))
             elif role_lower == 'admin':
-                return redirect(url_for('admin'))
+                return redirect(url_for('admin', name=current_user))
         
         else:
             flash("Invalid username or password.", "danger")
             
     return render_template('login.html', title = 'Login', form=form)
+
+@app.route('/Logout')
+def logout():
+    session.clear()
+    flash("You have been logged out.", "info")
+    return redirect(url_for('home'))
 
 
 @app.route('/about')
@@ -128,9 +135,11 @@ def report():
     return render_template('report.html', title = 'Report', form=form)
 
 
-@app.route('/admin')
+@app.route('/admin', methods = ['GET', 'POST'])
 def admin():
-    return render_template('admin.html', name="John")
+    current_admin = session.get('name')
+    reports = Report.query.order_by(Report.id.desc()).all()
+    return render_template('admin.html', title = "Admin", name = current_admin, reports = reports)
 
 @app.route('/admin/returning', methods = ['GET', 'POST'])
 def returning():
@@ -192,4 +201,6 @@ LostLink Admin Team
 
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)

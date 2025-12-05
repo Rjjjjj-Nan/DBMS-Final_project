@@ -7,20 +7,38 @@
     <title>{{ title }}</title>
 </head>
 <body>
-    <h1>Lost Link</h1>
+    <header>
+        <h1>Lost Link</h1>
+    </header>
     <a href="{{ url_for('home') }}">Home</a>
     <a href="{{ url_for('register') }}">Register</a>
     <a href="{{ url_for('login') }}">Login</a>
     <a href="{{ url_for('about') }}">About Us</a>
 
-    <main>
-        <h1>Locate. Link. Reclaim.</h1>
+    <h1 class="intro">Locate. Link. Reclaim.</h1>
+
+    <main class="home">
         <p>LostLink is a lost and found system designed to help 
             users report, search, and recover lost or found items efficiently. It provides 
             a centralized platform where people can record item details and track their status 
             until they are returned to their rightful owners. The system promotes honesty, organization, 
             and sustainability by reducing the number of unclaimed or replaced belongings. Through technology, 
             LostLink aims to build a more connected and responsible community.</p>
+
+        <div class="container">
+            <item>
+                <h2 class="homehead">SDG 9: Industry, Innovation, and Infrastructure</h2>
+                <p1>LostLink promotes organized, responsible, and connected communities by helping people return lost items and maintain cleaner, safer public spaces.</p1>
+            </item>
+            <item>
+                <h2 class="homehead">SDG 11: Sustainable Cities and Communities</h2>
+                <p1>LostLink promotes organized, responsible, and connected communities by helping people return lost items and maintain cleaner, safer public spaces.</p1>
+            </item>
+            <item>
+                <h2 class="homehead">SDG 12: Responsible Consumption and Production</h2>
+                <p1>LostLink encourages people to recover lost items instead of replacing them, reducing waste and supporting sustainable consumption.</p1>
+            </item>
+        </div>
     </main>
 </body>
 </html>
