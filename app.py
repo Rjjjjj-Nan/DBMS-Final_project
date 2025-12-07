@@ -213,7 +213,13 @@ def update_report(item_id):
         report.description = form.description.data
         db.session.commit()
         flash("Report updated successfully!", "success")
-        return redirect(url_for('dashboard'))
+
+        if current_user != 'admin':
+            return redirect(url_for('dashboard'))
+        elif current_user == 'admin':
+            return redirect(url_for('admin'))
+        
+        
     if current_user != 'admin':
         return render_template('update.html', report = report, form = form, title = 'Update Report')
     elif current_user == 'admin':
