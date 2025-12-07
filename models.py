@@ -25,7 +25,7 @@ class Report(db.Model):
     place = db.Column(db.String(255), nullable=False)
     photo = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=False)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, default=datetime.now)
     report_by = db.Column(
         db.String(255),
         db.ForeignKey('users.sr_code'),
@@ -44,4 +44,4 @@ class Return(db.Model):
     claimed_by = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), nullable=False)
     contact = db.Column(db.String(50), nullable=False)
-    timestamp_claimed = db.Column(db.DateTime, default=datetime.utcnow)
+    timestamp_claimed = db.Column(db.DateTime, default=datetime.now)
