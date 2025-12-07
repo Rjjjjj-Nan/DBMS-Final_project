@@ -119,3 +119,17 @@ class ReturnForm(FlaskForm):
     )
 
     submit = SubmitField("Submit")
+
+class UpdateForm(FlaskForm):
+    item = StringField (
+        "Item"   
+    )
+    place = StringField (
+        "Place"
+    )
+    description = StringField (
+        "Description"
+    )
+    submit = SubmitField (
+        "Update"
+    )

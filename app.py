@@ -4,8 +4,7 @@ from werkzeug.utils import secure_filename
 from functools import wraps
 from flask_mail import Mail, Message
 import os
-from flask_sqlalchemy import SQLAlchemy
-from forms import LoginForm, RegisterForm, ReportForm, ReturnForm
+from forms import LoginForm, RegisterForm, ReportForm, ReturnForm, UpdateForm
 from models import db, Register, Report, Return
 
 app = Flask(__name__)
@@ -74,13 +73,13 @@ def login():
                 return redirect(url_for('login'))
 
             session['role'] = user.role
-            session['sr_code'] = user.sr_code
+            sr_code = session['sr_code'] = user.sr_code
             current_user = session['name'] = user.name
             
             role_lower = session['role'] = user.role
 
             if role_lower == 'student':
-                return redirect(url_for('dashboard'))
+                return redirect(url_for('dashboard', sr_code = sr_code))
             elif role_lower == 'admin':
                 return redirect(url_for('admin', name=current_user))
         
@@ -109,6 +108,7 @@ def dashboard():
 @app.route('/dashboard/Report', methods = ['GET', 'POST'])
 def report():
     form = ReportForm()
+    reports = Report.query.order_by(Report.id.desc()).all()
 
     if form.validate_on_submit():
         photo = form.photo.data
@@ -132,7 +132,7 @@ def report():
         flash("Report Submitted Successfully!")
         return redirect(url_for('dashboard'))
     
-    return render_template('report.html', title = 'Report', form=form)
+    return render_template('report.html', title = 'Report', form=form, reports = reports, sr_code = session.get('sr_code'))
 
 
 @app.route('/admin', methods = ['GET', 'POST'])
@@ -199,6 +199,33 @@ LostLink Admin Team
         return redirect(url_for('admin'))
     
     return render_template('returning.html', form=form, title='Return Items', name = current_admin)
+
+@app.route('/update/<int:item_id>', methods = ['GET', 'POST'])
+def update_report(item_id):
+    report = Report.query.get_or_404(item_id)
+    form = UpdateForm()
+
+    current_user = session.get('role')
+
+    if request.method == 'POST':
+        report.item = form.item.data
+        report.place = form.place.data
+        report.description = form.description.data
+        db.session.commit()
+        flash("Report updated successfully!", "success")
+        return redirect(url_for('dashboard'))
+    if current_user != 'admin':
+        return render_template('update.html', report = report, form = form, title = 'Update Report')
+    elif current_user == 'admin':
+        return render_template('update_admin.html', report = report, form = form, title = 'Update Report')
+
+@app.route('/delete/<int:item_id>', methods = ['POST'])
+def delete_report(item_id):
+    report = Report.query.get_or_404(item_id)
+    db.session.delete(report)
+    db.session.commit()
+    flash("Report Deleted!", "info")
+    return redirect(url_for('dashboard'))
 
 @app.route('/admin/returned', methods = ['GET', 'POST'])
 def returned():

@@ -1,0 +1,29 @@
+{% extends "dashindex.html" %}
+
+{% block content %}
+
+    <h1>Update Report</h1>
+    <form method="post">
+        <div class="updateitem">
+            <h2>Current Photo</h2>
+            <img src="{{ url_for('static', filename='uploads/' ~ report.photo) }}" 
+                alt="{{ report.item }}" 
+                width="200">
+        </div>
+        {{ form.hidden_tag() }}
+
+        {{ form.item.label }}
+        {{ form.item(value = report.item) }}
+        <br>
+
+        {{ form.place.label }}
+        {{ form.place(value = report.place) }}
+        <br>
+
+        {{ form.description.label }}
+        {{ form.description(value = report.description) }}
+        <br>
+
+        {{ form.submit() }}
+
+{% endblock %}
