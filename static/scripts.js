@@ -30,3 +30,28 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById("searchInput");
+    const tableRows = document.querySelectorAll("table tbody tr");
+
+    // Stop Enter from reloading page
+    searchInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            filterTable();
+        }
+    });
+
+    // Filter while typing
+    searchInput.addEventListener("input", filterTable);
+
+    function filterTable() {
+        const filter = searchInput.value.toLowerCase();
+
+        tableRows.forEach(row => {
+            const rowText = row.innerText.toLowerCase();
+            row.style.display = rowText.includes(filter) ? "" : "none";
+        });
+    }
+});

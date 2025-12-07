@@ -1,9 +1,9 @@
 {% extends "admin.html" %}
 
 {% block content %}
+<h1>Returned Items</h1>
     <div class="main-content">
         <div class="report-section" method = "POST", enctype="multipart/form-data">
-            <h2>Returned Items</h2>
             {% if returned %}
                 <div class="table">
                     <table>
