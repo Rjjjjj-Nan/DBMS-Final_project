@@ -1,20 +1,105 @@
 {% extends "index.html" %}
 
 {% block content %}
-<h1>Login</h1>
 
-<form method = "post">
-    {{ form.hidden_tag() }}
+<div class="auth-split-page">
+    <div class="auth-split-left">
+        <div class="auth-items-illustration">
+            <div class="item-card item-backpack">
+                <span class="item-emoji">🎒</span>
+                <p>Backpack</p>
+            </div>
+            <div class="item-card item-phone">
+                <span class="item-emoji">📱</span>
+                <p>Phone</p>
+            </div>
+            <div class="item-card item-keys">
+                <span class="item-emoji">🔑</span>
+                <p>Keys</p>
+            </div>
+        </div>
+        <div class="auth-image-content">
+            <h2>Find Your Lost Items</h2>
+            <p>Connect with a community dedicated to reuniting people with their lost belongings.</p>
+            <div class="auth-stats">
+                <div class="stat">
+                    <div class="stat-number">5K+</div>
+                    <div class="stat-label">Items Found</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">2.5K+</div>
+                    <div class="stat-label">Users Active</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+            </div>
+            <div class="auth-features">
+                <div class="feature-item">
+                    <span class="feature-icon">🏷️</span>
+                    <p>Report Lost Items</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🔍</span>
+                    <p>Search Database</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📤</span>
+                    <p>Post Found Items</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="auth-split-right">
+        <div class="auth-decorative-bg">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>Login</h1>
+                <p>Sign in to your Lost Link account</p>
+            </div>
 
-    {{ form.username.label }}
-    {{ form.username() }}
-    <br>
+            <form method="post" class="auth-form">
+                {{ form.hidden_tag() }}
 
-    {{ form.password.label }}
-    {{ form.password() }}
-    <br>
+                <div class="form-group">
+                    {{ form.username.label }}
+                    {{ form.username(class="form-input", placeholder="User Name") }}
+                    {% if form.username.errors %}
+                        <div class="form-error">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
 
-    {{ form.submit() }}
-</form>
+                <div class="form-group">
+                    {{ form.password.label }}
+                    {{ form.password(class="form-input", placeholder="Password") }}
+                    {% if form.password.errors %}
+                        <div class="form-error">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-actions">
+                    {{ form.submit(class="btn btn-auth btn-submit", value="Sign In") }}
+                </div>
+            </form>
+
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="{{ url_for('register') }}">Register</a></p>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

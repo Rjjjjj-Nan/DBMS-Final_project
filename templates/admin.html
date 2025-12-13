@@ -9,12 +9,16 @@
 </head>
 <body>
     <header>
-        <h1>Lost Link Admin, {{ name }}</h1>
+        <div class="header-container">
+            <h1>Lost Link Admin, {{ name }}</h1>
+            <nav>
+                <a href="{{ url_for('admin') }}">Pending Items</a>
+                <a href="{{ url_for('returned') }}">Returned Items</a>
+                <a href="{{ url_for('returning') }}">Return Item</a>
+                <a href="{{ url_for('logout') }}">Log Out</a>
+            </nav>
+        </div>
     </header>
-    <a href="{{ url_for('admin') }}">Pending Items</a>
-    <a href="{{ url_for('returned') }}">Returned Items</a>
-    <a href="{{ url_for('returning') }}">Return Item</a>
-    <a href="{{ url_for('logout') }}">Log Out</a>
 
     {% block content %}
     <h1>Pending Items</h1>

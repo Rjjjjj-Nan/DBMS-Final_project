@@ -4,36 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <srcript src="{{ url_for('static', filename='style.js') }}"></srcript>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
     <title>{{ title }}</title>
 </head>
 <body>
-    <h1>Lost Link Dashboard</h1>
-    <a href="{{ url_for('report') }}">Report</a>
-    <a href="{{ url_for('dashboard') }}">Feed</a>
-    <a href="{{ url_for('logout') }}">Log Out</a>
+    <header>
+        <div class="header-container">
+            <h1>Lost Link</h1>
+            <nav>
+                <a href="{{ url_for('report') }}">Report Item</a>
+                <a href="{{ url_for('logout') }}">Log Out</a>
+            </nav>
+        </div>
+    </header>
 
-    <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash flash-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <main class="dashboard-main">
+        <div class="dashboard-header">
+            <h2>Lost Items Feed</h2>
+            <p class="subtitle">Report or search for lost and found items</p>
+        </div>
+
         {% if reports %}
             <div class="feed">
                 {% for report in reports %}
                     <div class="post">
-                        <h3>Item ID - {{ report.id }}</h3>
-                        <h3>Item Name - {{ report.item }}</h3>
-                        <h3>Place Found - {{ report.place }}</h3>
-                        <h3>Time Found - {{ report.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</h3>
-                        <h3>Report By - {{ report.report_by }}</h3>
-                        <img src="{{ url_for('static', filename='uploads/' ~ report.photo) }}" 
-                                    alt="{{ report.item }}" 
-                                    width="200" 
-                                    class="clickable-img"
-                                    data-report-id="{{ report.id }}">
-                        <p>{{ report.description }}</p>
+                        <div class="post-header">
+                            <span class="item-id">ID: {{ report.id }}</span>
+                            <span class="post-date">{{ report.timestamp.strftime('%m/%d/%Y') }}</span>
+                        </div>
+                        
+                        <div class="post-image-container">
+                            <img src="{{ url_for('static', filename='uploads/' ~ report.photo) }}" 
+                                alt="{{ report.item }}" 
+                                class="post-img"
+                                data-report-id="{{ report.id }}">
+                        </div>
+                        
+                        <div class="post-content">
+                            <h3 class="item-title">{{ report.item }}</h3>
+                            
+                            <div class="post-info">
+                                <p><strong>📍 Location:</strong> {{ report.place }}</p>
+                                <p><strong>⏰ Found:</strong> {{ report.timestamp.strftime('%H:%M:%S') }}</p>
+                                <p><strong>👤 Reporter:</strong> {{ report.report_by }}</p>
+                            </div>
+                            
+                            <p class="post-description">{{ report.description }}</p>
+                            
+                        </div>
                     </div>
                 {% endfor %}
             </div>
         {% else %}
-            <p>No Reports Yet</p>
+            <div class="empty-state">
+                <p>📭 No Reports Yet</p>
+                <p>Be the first to report a lost item!</p>
+                <a href="{{ url_for('report') }}" class="btn btn-primary">Report an Item</a>
+            </div>
         {% endif %}
     </main>
 

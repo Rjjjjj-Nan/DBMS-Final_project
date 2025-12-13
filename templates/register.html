@@ -2,53 +2,202 @@
 
 {% block content %}
 
-<h1>Register</h1>
+<div class="auth-split-page">
+    <div class="auth-split-left">
+        <div class="auth-items-illustration">
+            <div class="item-card item-wallet">
+                <span class="item-emoji">👜</span>
+                <p>Wallet</p>
+            </div>
+            <div class="item-card item-watch">
+                <span class="item-emoji">⌚</span>
+                <p>Watch</p>
+            </div>
+            <div class="item-card item-glasses">
+                <span class="item-emoji">👓</span>
+                <p>Glasses</p>
+            </div>
+        </div>
+        <div class="auth-image-content">
+            <h2>Join the Community</h2>
+            <p>Help others find their lost items and recover your own belongings with Lost Link.</p>
+            <div class="auth-stats">
+                <div class="stat">
+                    <div class="stat-number">5K+</div>
+                    <div class="stat-label">Items Found</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">2.5K+</div>
+                    <div class="stat-label">Users Active</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+            </div>
+            <div class="auth-features">
+                <div class="feature-item">
+                    <span class="feature-icon">🏷️</span>
+                    <p>Report Items</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🔍</span>
+                    <p>Find Lost Items</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📤</span>
+                    <p>Post Found Items</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="auth-split-right">
+        <div class="auth-decorative-bg">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>Create Account</h1>
+                <p>Join Lost Link to report and find items</p>
+            </div>
 
-<form method = "post">
-    {{ form.hidden_tag() }}
+            <form method="post" class="auth-form">
+                {{ form.hidden_tag() }}
 
-    {{ form.sr_code.label }}
-    {{ form.sr_code() }}
-    <br>
+                <div class="form-group">
+                    {{ form.sr_code.label }}
+                    {{ form.sr_code(class="form-input", placeholder="Enter your ID") }}
+                    {% if form.sr_code.errors %}
+                        <div class="form-error">
+                            {% for error in form.sr_code.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
 
-    {{ form.name.label }}
-    {{ form.name() }}
-    <br>
+                <div class="form-row">
+                    <div class="form-group">
+                        {{ form.name.label }}
+                        {{ form.name(class="form-input", placeholder="First name") }}
+                        {% if form.name.errors %}
+                            <div class="form-error">
+                                {% for error in form.name.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
 
-    {{ form.surname.label }}
-    {{ form.surname() }}
-    <br>
+                    <div class="form-group">
+                        {{ form.surname.label }}
+                        {{ form.surname(class="form-input", placeholder="Last name") }}
+                        {% if form.surname.errors %}
+                            <div class="form-error">
+                                {% for error in form.surname.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
 
-    {{ form.age.label }}
-    {{ form.age() }}
-    <br>
+                <div class="form-row">
+                    <div class="form-group">
+                        {{ form.age.label }}
+                        {{ form.age(class="form-input", placeholder="Age") }}
+                        {% if form.age.errors %}
+                            <div class="form-error">
+                                {% for error in form.age.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
 
-    {{ form.email.label }}
-    {{ form.email() }}
-    <br>
+                    <div class="form-group">
+                        {{ form.gender.label }}
+                        {{ form.gender(class="form-input") }}
+                        {% if form.gender.errors %}
+                            <div class="form-error">
+                                {% for error in form.gender.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
 
-    {{ form.contact_number.label }}
-    {{ form.contact_number() }}
-    <br>
+                <div class="form-group">
+                    {{ form.email.label }}
+                    {{ form.email(class="form-input", placeholder="your@email.com") }}
+                    {% if form.email.errors %}
+                        <div class="form-error">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
 
-    {{ form.gender.label }}
-    {{ form.gender() }}
-    <br>
+                <div class="form-group">
+                    {{ form.contact_number.label }}
+                    {{ form.contact_number(class="form-input", placeholder="+63") }}
+                    {% if form.contact_number.errors %}
+                        <div class="form-error">
+                            {% for error in form.contact_number.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
 
-    {{ form.username.label }}
-    {{ form.username() }}
-    <br>
+                <div class="form-group">
+                    {{ form.username.label }}
+                    {{ form.username(class="form-input", placeholder="Username") }}
+                    {% if form.username.errors %}
+                        <div class="form-error">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
 
-    {{ form.password.label }}
-    {{ form.password() }}
-    <br>
+                <div class="form-group">
+                    {{ form.password.label }}
+                    {{ form.password(class="form-input", placeholder="Enter password") }}
+                    {% if form.password.errors %}
+                        <div class="form-error">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
 
-    {{ form.role.label }}
-    {{ form.role() }}
-    <br>
+                <div class="form-group">
+                    {{ form.role.label }}
+                    {{ form.role(class="form-input") }}
+                    {% if form.role.errors %}
+                        <div class="form-error">
+                            {% for error in form.role.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
 
-    {{ form.submit() }}
+                {{ form.submit(class="btn btn-auth btn-submit") }}
+            </form>
 
-</form>
+            <div class="auth-footer">
+                <p>Already have an account? <a href="{{ url_for('login') }}">Sign in</a></p>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

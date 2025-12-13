@@ -2,14 +2,86 @@
 
 {% block content %}
 
-<h1>About Us</h1>
+<div class="about-page">
+    <section class="about-hero">
+        <h1>About Lost Link</h1>
+        <p class="about-subtitle">Building a community that cares about lost and found items</p>
+    </section>
 
-<body>
-    <h2>Our Team</h2>
-    <p>Mitra, John Ray I.</p>
-    <p>Beresuto, Karol Fernando II C.</p>
-    <p>Morales, Kristian L.</p>
-    <p>Pactol, John Lloyd B.</p>
-</body>
+    <section class="about-content">
+        <div class="about-section">
+            <h2>Our Mission</h2>
+            <p>Lost Link is dedicated to helping people recover lost items and return found items to their rightful owners. We believe that every lost item has a story, and our mission is to reunite people with what matters most to them.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>Our Vision</h2>
+            <p>We envision a world where lost items are quickly recovered, where communities are more connected, and where people look out for one another. Through technology and human kindness, we're building a platform that brings people together.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>Why We Started</h2>
+            <p>Lost Link was created to address a real problem: the hassle and stress of losing important items. We wanted to create a centralized platform where people can report lost and found items, making it easier to reconnect belongings with their owners.</p>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <h2>Our Team</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-avatar">👨‍💼</div>
+                <h3>John Ray I. Mitra</h3>
+                <p class="role">Co-Founder</p>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">👨‍💼</div>
+                <h3>Karol Fernando II C. Beresuto</h3>
+                <p class="role">Co-Founder</p>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">👨‍💼</div>
+                <h3>Kristian L. Morales</h3>
+                <p class="role">Co-Founder</p>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">👨‍💼</div>
+                <h3>John Lloyd B. Pactol</h3>
+                <p class="role">Co-Founder</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="values-section">
+        <h2>Our Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">🤝</div>
+                <h3>Community</h3>
+                <p>We believe in the power of community to help each other</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">💡</div>
+                <h3>Innovation</h3>
+                <p>We use technology to solve real-world problems</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🌍</div>
+                <h3>Sustainability</h3>
+                <p>We promote responsible consumption by reducing waste</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🔒</div>
+                <h3>Trust</h3>
+                <p>Your information and safety are our top priority</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Join Our Community</h2>
+        <p>Help us make a difference. Report lost items, help others find what they've lost, and be part of a community that cares.</p>
+        <a href="{{ url_for('register') }}" class="btn btn-primary btn-large">Get Started Today</a>
+    </section>
+</div>
 
 {% endblock %}

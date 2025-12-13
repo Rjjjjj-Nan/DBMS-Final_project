@@ -36,7 +36,7 @@ class Return(db.Model):
     __tablename__ = 'returns'
 
     id = db.Column(db.Integer, primary_key=True)
-    item_id = db.Column(db.Integer, db.ForeignKey('report.id', ondelete='CASCADE'), nullable=False)
+    item_id = db.Column(db.Integer, db.ForeignKey('reports.id', ondelete='CASCADE'), nullable=False)
     item_name = db.Column(db.String(255), nullable=False)
     place_found = db.Column(db.String(255), nullable=False)
     photo = db.Column(db.String(255), nullable=False)
