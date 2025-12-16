@@ -1,3 +1,3 @@
 download external libraries:
 
-pip install flask flask_wtf flask_mail flask_sqlalchemy wtforms 
+pip install flask flask_wtf flask_mail flask_sqlalchemy wtforms pip install psycopg2

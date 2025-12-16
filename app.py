@@ -71,7 +71,7 @@ def register():
                 gender = form.gender.data,
                 username = form.username.data,
                 password = hashed_password,
-                role = form.role.data
+                role = "student"
             )
 
             db.session.add(new_user)
@@ -93,6 +93,59 @@ def register():
                     flash(f"{field}: {error}", "danger")
     
     return render_template('register.html', form=form, title='register')
+
+@app.route('/register_admin', methods = ['GET', 'POST'])
+def register_admin():
+    form = RegisterForm()
+
+    if form.validate_on_submit():
+        try:
+            # Check if sr_code already exists
+            existing_sr = Register.query.filter_by(sr_code=form.sr_code.data).first()
+            if existing_sr:
+                flash("Sr-Code already registered!", "danger")
+                return render_template('register.html', form=form, title='register')
+            
+            # Check if username already exists
+            existing_user = Register.query.filter_by(username=form.username.data).first()
+            if existing_user:
+                flash("Username already taken!", "danger")
+                return render_template('register.html', form=form, title='register')
+
+            hashed_password = generate_password_hash(form.password.data)
+
+            new_user = Register(
+                sr_code = form.sr_code.data,
+                name = form.name.data,
+                surname = form.surname.data,
+                age = form.age.data,
+                email = form.email.data,
+                contact = form.contact_number.data,
+                gender = form.gender.data,
+                username = form.username.data,
+                password = hashed_password,
+                role = "admin"
+            )
+
+            db.session.add(new_user)
+            db.session.commit()
+
+            flash("Registration successful! Please log in.", "success")
+            return redirect(url_for('login'))
+        
+        except Exception as e:
+            db.session.rollback()
+            print(f"Registration error: {str(e)}")
+            flash(f"Registration error: {str(e)}", "danger")
+    else:
+        # Print form errors for debugging
+        if form.errors:
+            print(f"Form validation errors: {form.errors}")
+            for field, errors in form.errors.items():
+                for error in errors:
+                    flash(f"{field}: {error}", "danger")
+    
+    return render_template('register_admin.html', form=form, title='Admin Register')
 
 
 @app.route('/login', methods = ['GET', 'POST'])
@@ -143,7 +196,9 @@ def dashboard():
 @login_required
 def report():
     form = ReportForm()
-    reports = Report.query.order_by(Report.id.desc()).all()
+    # Only show reports created by the currently logged-in user
+    current_sr_code = session.get('sr_code')
+    reports = Report.query.filter_by(report_by=current_sr_code).order_by(Report.id.desc()).all()
 
     if form.validate_on_submit():
         photo = form.photo.data
@@ -167,7 +222,7 @@ def report():
         flash("Report Submitted Successfully!")
         return redirect(url_for('dashboard'))
     
-    return render_template('report.html', title = 'Report', form=form, reports = reports, sr_code = session.get('sr_code'))
+    return render_template('report.html', title = 'Report', form=form, reports = reports, sr_code = current_sr_code)
 
 
 @app.route('/admin', methods = ['GET', 'POST'])
@@ -222,19 +277,67 @@ def returning():
         msg.body = f"""
 Hello {form.name.data},
 
-Your claim for the item '{report.item}' has been returned successfully.
+Good day!
 
-Details:
-- Item: {report.item}
-- Place Found: {report.place}
-- Description: {report.description}
-- Contact Provided: {form.contact.data}
+We are pleased to inform you that your claim has been successfully processed, and the item listed below has been returned.
 
-Thank you for using LostLink.
+------------------------------
+ITEM DETAILS
+------------------------------
+Item Name       : {returned_item.item_name}
+Place Found     : {returned_item.place_found}
+Description     : {returned_item.description}
+Contact Provided: {returned_item.contact}
+------------------------------
 
+If you have any questions or need further assistance, feel free to contact us.
 
-Regards,
+Thank you for trusting LostLink in helping recover your belongings.
+
+Best regards,
+
 LostLink Admin Team
+"""
+
+        # HTML Email (Recommended)
+        msg.html = f"""
+<html>
+<body>
+    <p>Hello <strong>{form.name.data}</strong>,</p>
+
+    <p>Good day!</p>
+
+    <p>
+        We are pleased to inform you that your claim has been 
+        <strong>successfully processed</strong>. Below are the details of the returned item:
+    </p>
+
+    <hr>
+
+    <h3>Item Details</h3>
+    <ul>
+        <li><strong>Item Name:</strong> {returned_item.item_name}</li>
+        <li><strong>Place Found:</strong> {returned_item.place_found}</li>
+        <li><strong>Description:</strong> {returned_item.description}</li>
+        <li><strong>Contact Provided:</strong> {returned_item.contact}</li>
+    </ul>
+
+    <hr>
+
+    <p>
+        If you have any questions or need further assistance, feel free to reach out.
+    </p>
+
+    <p>
+        Thank you for trusting <strong>LostLink</strong>.
+    </p>
+
+    <p>
+        Best regards,<br>
+        <strong>LostLink Admin Team</strong>
+    </p>
+</body>
+</html>
 """
         mail.send(msg)
 
