@@ -39,7 +39,7 @@ def login_required(f):
 
 @app.route('/')
 def home():
-    return render_template('home.html', title = 'Lost Link')
+    return render_template('home.html', title = 'LOSTLINK')
 
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
